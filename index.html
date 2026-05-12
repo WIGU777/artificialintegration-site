@@ -318,6 +318,44 @@ section { margin-bottom: 72px; }
 .process .detail {
   color: var(--ink-2);
 }
+
+/* Highlights bullets */
+.highlights {
+  margin: 24px 0 8px;
+  padding: 20px 22px;
+  border: 1px solid var(--line);
+  border-radius: 2px;
+  background: rgba(10,10,10,0.015);
+}
+.highlights-title {
+  font-family: var(--mono);
+  font-size: 10.5px;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--ink-3);
+  margin-bottom: 14px;
+}
+.highlights ul {
+  list-style: none;
+}
+.highlights li {
+  position: relative;
+  padding: 8px 0 8px 24px;
+  font-size: 13px;
+  color: var(--ink);
+  border-bottom: 1px dashed rgba(10,10,10,0.06);
+  line-height: 1.5;
+}
+.highlights li:last-child { border-bottom: none; }
+.highlights li::before {
+  content: '→';
+  position: absolute;
+  left: 0;
+  top: 8px;
+  font-family: var(--mono);
+  font-size: 12px;
+  color: var(--accent);
+}
 .pipeline-row {
   display: flex;
   align-items: center;
@@ -441,8 +479,8 @@ footer a:hover { color: var(--ink); }
   <div class="rail-title">Index</div>
   <ul>
     <li><a href="#storyforge" data-rail="storyforge">StoryForge</a></li>
+    <li><a href="#wigo-cart" data-rail="wigo-cart">Wigo Cart</a></li>
     <li><a href="#approval-flow" data-rail="approval-flow">Approval Flow</a></li>
-    <li><a href="#checkout-app" data-rail="checkout-app">Checkout app</a></li>
     <li><a href="#studio" data-rail="studio">Studio</a></li>
     <li><a href="#capabilities" data-rail="capabilities">Capabilities</a></li>
   </ul>
@@ -476,13 +514,13 @@ footer a:hover { color: var(--ink); }
     </li>
     <li>
       <span class="meta">2026</span>
-      <a href="#approval-flow" class="title">Approval Flow</a>
+      <a href="#wigo-cart" class="title">Wigo Cart</a>
       <span class="desc">Shopify app · studio product</span>
     </li>
     <li>
       <span class="meta">2026</span>
-      <a href="#checkout-app" class="title">[Project Name]</a>
-      <span class="desc">Shopify checkout app · in development</span>
+      <a href="#approval-flow" class="title">Approval Flow</a>
+      <span class="desc">Shopify app · studio product</span>
     </li>
   </ul>
 </section>
@@ -542,6 +580,39 @@ footer a:hover { color: var(--ink); }
   </div>
 </article>
 
+<article id="wigo-cart" class="entry">
+  <div class="entry-meta">
+    <span>2026</span><span class="sep">/</span><span>Studio product</span>
+  </div>
+  <h2>Wigo Cart</h2>
+
+  <div class="video">
+    <video muted loop playsinline preload="metadata">
+      <source src="https://media.artificialintegration.io/wigo-cart.mp4" type="video/mp4">
+    </video>
+  </div>
+  <div class="video-caption">Branded cart, merchant dashboard, gated access</div>
+
+  <p>A Shopify app that replaces the default cart page with a branded, conversion-optimised experience. Standard Shopify plans lock the checkout — merchants fully own the cart page, and Wigo Cart fills that gap.</p>
+  <p>Built on Cloudflare Workers with D1 for multi-tenant configuration. The storefront widget is plain JavaScript — framework-free, theme-agnostic, and ships as a single ScriptTag injection. Brand extraction runs once on install: the app scrapes the merchant's storefront, builds a theme tokenset, and renders the cart from it on every request.</p>
+
+  <div class="highlights">
+    <div class="highlights-title">Highlights</div>
+    <ul>
+      <li>Inline upsells fire on cart conditions — subtotal, SKU presence, item count.</li>
+      <li>Free-shipping progress bar and AJAX quantity controls update live without page reloads.</li>
+      <li>localStorage-persisted countdown timers survive page reloads and tab switches.</li>
+      <li>Optional gated tier — token-based access control for members-only products.</li>
+      <li>Merchant dashboard for no-code configuration across themes, copy, and behaviour.</li>
+      <li>Native Shopify checkout untouched. No payment surface to maintain.</li>
+    </ul>
+  </div>
+
+  <div class="stack">
+    <span>TypeScript</span><span>Cloudflare Workers</span><span>D1</span><span>Shopify OAuth</span><span>ScriptTag API</span><span>Vanilla JS</span>
+  </div>
+</article>
+
 <article id="approval-flow" class="entry">
   <div class="entry-meta">
     <span>2026</span><span class="sep">/</span><span>Studio product</span>
@@ -556,31 +627,26 @@ footer a:hover { color: var(--ink); }
   <div class="video-caption">Merchant queue · customer approval · 45s</div>
 
   <p>A Shopify app for personalised-product merchants. Customers approve their proof through a signed link before fulfilment; merchants get a one-screen queue for upload, send, and approval.</p>
-  <p>Built end-to-end in three days. OAuth, webhook handlers, signed customer sessions, transactional email, file storage. Deployed at the edge.</p>
+  <p>Built end-to-end in three days on Cloudflare Workers, D1, and R2. HMAC-verified webhooks ingest Shopify orders the moment they're placed. Signed customer sessions gate proof access without requiring login. File delivery streams through the worker, so raw R2 URLs are never exposed.</p>
+
+  <div class="highlights">
+    <div class="highlights-title">Highlights</div>
+    <ul>
+      <li>One-screen merchant queue: upload, send, approve, or request changes without leaving the dashboard.</li>
+      <li>Customer approval flow has no login, no app install, no friction.</li>
+      <li>168-hour signed customer tokens with HMAC verification and auto-expiry.</li>
+      <li>Transactional email via Resend with one-click approval links.</li>
+      <li>Webhook orchestration: order created → proof row → email → approval state machine.</li>
+      <li>Live on a paying store within a week of starting.</li>
+    </ul>
+  </div>
+
   <div class="stack">
     <span>TypeScript</span><span>Hono</span><span>D1 + R2</span><span>Shopify OAuth</span><span>Resend</span>
   </div>
 </article>
 
-<article id="checkout-app" class="entry">
-  <div class="entry-meta">
-    <span>2026</span><span class="sep">/</span><span>In development</span>
-  </div>
-  <h2>[Project Name]</h2>
 
-  <div class="video">
-    <video muted loop playsinline preload="metadata">
-      <source src="https://media.artificialintegration.io/checkout-app.mp4" type="video/mp4">
-    </video>
-  </div>
-  <div class="video-caption">Preview · in development</div>
-
-  <p>[One-line description of what the checkout app does and the problem it solves.]</p>
-  <p>[Second paragraph: technical approach, integration surface, deployment.]</p>
-  <div class="stack">
-    <span>TypeScript</span><span>Shopify Checkout Extensions</span><span>[stack item]</span><span>[stack item]</span>
-  </div>
-</article>
 
 <section id="studio">
   <div class="sec-title">
