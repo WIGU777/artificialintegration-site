@@ -247,6 +247,40 @@ section { margin-bottom: 72px; }
 }
 
 /* Process breakdown */
+.stats {
+  margin: 24px 0 16px;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1px;
+  background: var(--line);
+  border: 1px solid var(--line);
+  border-radius: 2px;
+  overflow: hidden;
+}
+.stats .stat {
+  background: var(--bg);
+  padding: 18px 16px;
+  text-align: center;
+}
+.stats .num {
+  font-family: var(--mono);
+  font-size: 22px;
+  font-weight: 500;
+  letter-spacing: -0.02em;
+  color: var(--ink);
+  display: block;
+  line-height: 1.1;
+  margin-bottom: 6px;
+}
+.stats .num .accent { color: var(--accent); }
+.stats .label {
+  font-family: var(--mono);
+  font-size: 10.5px;
+  letter-spacing: 0.06em;
+  color: var(--ink-3);
+  text-transform: uppercase;
+}
+
 .process {
   margin: 24px 0 8px;
   padding: 20px 22px;
@@ -464,33 +498,39 @@ footer a:hover { color: var(--ink); }
       <source src="https://media.artificialintegration.io/storyforge.mp4" type="video/mp4">
     </video>
   </div>
-  <div class="video-caption">Intake to finished book · 60s</div>
+  <div class="video-caption">Intake to finished book · 5 minutes</div>
 
   <p>An automated pipeline that produces fully illustrated, personalised children's books from a short intake questionnaire. Built originally for <a href="https://whenigrowup.shop" target="_blank" rel="noopener" style="color:var(--ink);border-bottom:1px solid var(--ink-3);text-decoration:none;">When I Grow Up</a>, where it now runs the entire fulfilment chain.</p>
   <p>Intake to print-ready PDF runs end-to-end without human intervention, orchestrated on Cloudflare Workers.</p>
+
+  <div class="stats">
+    <div class="stat"><span class="num">24</span><span class="label">Scenes per book</span></div>
+    <div class="stat"><span class="num">300</span><span class="label">Seconds end-to-end</span></div>
+    <div class="stat"><span class="num">0</span><span class="label">Humans in the render loop</span></div>
+  </div>
 
   <div class="process">
     <div class="process-title">Process</div>
     <ul>
       <li>
         <span class="stage">intake</span>
-        <span class="detail">Captures child's name, age, photo, and story themes through a guided questionnaire.</span>
+        <span class="detail">A guided questionnaire captures the child's identity, story themes, and a reference photo. Structured output feeds the orchestrator.</span>
       </li>
       <li>
         <span class="stage">claude</span>
-        <span class="detail">Generates a 24-scene narrative arc, character details, and per-page prompts.</span>
+        <span class="detail">A single inference pass generates a 24-scene narrative arc, a character profile, and per-page art direction.</span>
       </li>
       <li>
         <span class="stage">fal.ai</span>
-        <span class="detail">Renders character-consistent illustrations for every scene from the page prompts.</span>
+        <span class="detail">24 character-consistent illustrations. Face, style, and palette locked across the full book without retouching or post-processing.</span>
       </li>
       <li>
         <span class="stage">playwright</span>
-        <span class="detail">Composes pages, sets type, and exports a print-ready PDF.</span>
+        <span class="detail">Headless layout engine sets type, composes pages, and exports a print-ready PDF in commercial bleed.</span>
       </li>
       <li>
         <span class="stage">qc</span>
-        <span class="detail">Surfaces every page for review. Prompt-based edits regenerate only affected pages.</span>
+        <span class="detail">A reviewer flags a page in natural language. The system regenerates only the affected page and recompiles the book.</span>
       </li>
     </ul>
   </div>
