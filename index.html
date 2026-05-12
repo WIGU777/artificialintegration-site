@@ -348,9 +348,72 @@ footer a:hover { color: var(--ink); }
   .entry h2 { font-size: 17px; }
   footer { flex-direction: column; gap: 8px; }
 }
+
+/* Sticky left rail */
+.rail {
+  display: none;
+  position: fixed;
+  left: 40px;
+  top: 56px;
+  font-family: var(--mono);
+  font-size: 11px;
+  letter-spacing: 0.02em;
+  max-width: 160px;
+  z-index: 10;
+}
+@media (min-width: 1080px) {
+  .rail { display: block; }
+}
+.rail-title {
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  font-size: 10px;
+  margin-bottom: 14px;
+  color: var(--ink-3);
+}
+.rail ul { list-style: none; }
+.rail li { padding: 4px 0; }
+.rail a {
+  color: var(--ink-3);
+  text-decoration: none;
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  transition: color 0.15s;
+}
+.rail a::before {
+  content: '';
+  display: inline-block;
+  width: 6px;
+  height: 1px;
+  background: currentColor;
+  opacity: 0.5;
+  transition: width 0.2s ease, background 0.2s, opacity 0.2s;
+}
+.rail a:hover { color: var(--ink); }
+.rail a.active {
+  color: var(--ink);
+}
+.rail a.active::before {
+  width: 16px;
+  background: var(--accent);
+  opacity: 1;
+}
 </style>
 </head>
 <body>
+
+<aside class="rail" aria-label="Section navigation">
+  <div class="rail-title">Index</div>
+  <ul>
+    <li><a href="#storyforge" data-rail="storyforge">StoryForge</a></li>
+    <li><a href="#approval-flow" data-rail="approval-flow">Approval Flow</a></li>
+    <li><a href="#checkout-app" data-rail="checkout-app">Checkout app</a></li>
+    <li><a href="#studio" data-rail="studio">Studio</a></li>
+    <li><a href="#capabilities" data-rail="capabilities">Capabilities</a></li>
+  </ul>
+</aside>
+
 <main>
 
 <header>
@@ -525,5 +588,18 @@ footer a:hover { color: var(--ink); }
 </footer>
 
 </main>
+
+<script>
+  const railLinks = document.querySelectorAll('.rail a[data-rail]');
+  const targets = Array.from(railLinks).map(a => document.getElementById(a.dataset.rail)).filter(Boolean);
+  const obs = new IntersectionObserver((entries) => {
+    entries.forEach(e => {
+      if (e.isIntersecting) {
+        railLinks.forEach(a => a.classList.toggle('active', a.dataset.rail === e.target.id));
+      }
+    });
+  }, { rootMargin: '-35% 0px -55% 0px', threshold: 0 });
+  targets.forEach(t => obs.observe(t));
+</script>
 </body>
 </html>
