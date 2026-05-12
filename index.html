@@ -494,7 +494,7 @@ footer a:hover { color: var(--ink); }
   <h2>StoryForge</h2>
 
   <div class="video">
-    <video autoplay muted loop playsinline preload="metadata">
+    <video muted loop playsinline preload="metadata">
       <source src="https://media.artificialintegration.io/storyforge.mp4" type="video/mp4">
     </video>
   </div>
@@ -549,14 +549,14 @@ footer a:hover { color: var(--ink); }
   <h2>Approval Flow</h2>
 
   <div class="video">
-    <video autoplay muted loop playsinline preload="metadata">
+    <video muted loop playsinline preload="metadata">
       <source src="https://media.artificialintegration.io/approval-flow.mp4" type="video/mp4">
     </video>
   </div>
   <div class="video-caption">Merchant queue · customer approval · 45s</div>
 
   <p>A Shopify app for personalised-product merchants. Customers approve their proof through a signed link before fulfilment; merchants get a one-screen queue for upload, send, and approval.</p>
-  <p>Built end-to-end in five days. OAuth, webhook handlers, signed customer sessions, transactional email, file storage. Deployed at the edge.</p>
+  <p>Built end-to-end in three days. OAuth, webhook handlers, signed customer sessions, transactional email, file storage. Deployed at the edge.</p>
   <div class="stack">
     <span>TypeScript</span><span>Hono</span><span>D1 + R2</span><span>Shopify OAuth</span><span>Resend</span>
   </div>
@@ -569,7 +569,7 @@ footer a:hover { color: var(--ink); }
   <h2>[Project Name]</h2>
 
   <div class="video">
-    <video autoplay muted loop playsinline preload="metadata">
+    <video muted loop playsinline preload="metadata">
       <source src="https://media.artificialintegration.io/checkout-app.mp4" type="video/mp4">
     </video>
   </div>
@@ -630,6 +630,7 @@ footer a:hover { color: var(--ink); }
 </main>
 
 <script>
+  // Sticky rail: highlight active section
   const railLinks = document.querySelectorAll('.rail a[data-rail]');
   const targets = Array.from(railLinks).map(a => document.getElementById(a.dataset.rail)).filter(Boolean);
   const obs = new IntersectionObserver((entries) => {
@@ -640,6 +641,21 @@ footer a:hover { color: var(--ink); }
     });
   }, { rootMargin: '-35% 0px -55% 0px', threshold: 0 });
   targets.forEach(t => obs.observe(t));
+
+  // Videos: only play when scrolled into view, reset on re-entry
+  document.querySelectorAll('.video video').forEach(v => {
+    const vio = new IntersectionObserver((entries) => {
+      entries.forEach(e => {
+        if (e.isIntersecting) {
+          v.currentTime = 0;
+          v.play().catch(() => {});
+        } else {
+          v.pause();
+        }
+      });
+    }, { threshold: 0.25 });
+    vio.observe(v);
+  });
 </script>
 </body>
 </html>
