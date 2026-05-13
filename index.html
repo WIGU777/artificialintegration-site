@@ -479,7 +479,6 @@ footer a:hover { color: var(--ink); }
   <div class="rail-title">Index</div>
   <ul>
     <li><a href="#storyforge" data-rail="storyforge">StoryForge</a></li>
-    <li><a href="#wigo-cart" data-rail="wigo-cart">Wigo Cart</a></li>
     <li><a href="#approval-flow" data-rail="approval-flow">Approval Flow</a></li>
     <li><a href="#studio" data-rail="studio">Studio</a></li>
     <li><a href="#capabilities" data-rail="capabilities">Capabilities</a></li>
@@ -511,11 +510,6 @@ footer a:hover { color: var(--ink); }
       <span class="meta">2026</span>
       <a href="#storyforge" class="title">StoryForge</a>
       <span class="desc">AI pipeline · in-house system</span>
-    </li>
-    <li>
-      <span class="meta">2026</span>
-      <a href="#wigo-cart" class="title">Wigo Cart</a>
-      <span class="desc">Shopify app · studio product</span>
     </li>
     <li>
       <span class="meta">2026</span>
@@ -577,39 +571,6 @@ footer a:hover { color: var(--ink); }
 
   <div class="stack">
     <span>TypeScript</span><span>Cloudflare Workers</span><span>Claude API</span><span>fal.ai</span><span>Playwright</span><span>D1 + R2</span>
-  </div>
-</article>
-
-<article id="wigo-cart" class="entry">
-  <div class="entry-meta">
-    <span>2026</span><span class="sep">/</span><span>Studio product</span>
-  </div>
-  <h2>Wigo Cart</h2>
-
-  <div class="video">
-    <video muted loop playsinline preload="metadata">
-      <source src="https://media.artificialintegration.io/wigo-cart.mp4" type="video/mp4">
-    </video>
-  </div>
-  <div class="video-caption">Branded cart, merchant dashboard, gated access</div>
-
-  <p>A Shopify app that replaces the default cart page with a branded, conversion-optimised experience. Standard Shopify plans lock the checkout — merchants fully own the cart page, and Wigo Cart fills that gap.</p>
-  <p>Built on Cloudflare Workers with D1 for multi-tenant configuration. The storefront widget is plain JavaScript — framework-free, theme-agnostic, and ships as a single ScriptTag injection. Brand extraction runs once on install: the app scrapes the merchant's storefront, builds a theme tokenset, and renders the cart from it on every request.</p>
-
-  <div class="highlights">
-    <div class="highlights-title">Highlights</div>
-    <ul>
-      <li>Inline upsells fire on cart conditions — subtotal, SKU presence, item count.</li>
-      <li>Free-shipping progress bar and AJAX quantity controls update live without page reloads.</li>
-      <li>localStorage-persisted countdown timers survive page reloads and tab switches.</li>
-      <li>Optional gated tier — token-based access control for members-only products.</li>
-      <li>Merchant dashboard for no-code configuration across themes, copy, and behaviour.</li>
-      <li>Native Shopify checkout untouched. No payment surface to maintain.</li>
-    </ul>
-  </div>
-
-  <div class="stack">
-    <span>TypeScript</span><span>Cloudflare Workers</span><span>D1</span><span>Shopify OAuth</span><span>ScriptTag API</span><span>Vanilla JS</span>
   </div>
 </article>
 
